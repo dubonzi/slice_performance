@@ -70,7 +70,7 @@ We are trading a little bit of overhead on the initial array creation for a big 
 
 For a little more context on the performance gains, below is the amount of times the garbage collector ran during each benchmark:
 
-### No initial capacity
+#### No initial capacity
 
 ```
 gc 5 @0.007s 3%: 0.004+1.1+0.006 ms clock, 0.051+0/0.93/0.74+0.081 ms cpu, 4->4->4 MB, 5 MB goal, 12 P
@@ -81,7 +81,7 @@ gc 373 @1.390s 3%: 0.008+0.96+0.008 ms clock, 0.10+0.007/1.5/0.74+0.096 ms cpu, 
 
 ```
 
-### With initial capacity
+#### With initial capacity
 
 ```
 gc 5 @0.007s 2%: 0.004+0.49+0.004 ms clock, 0.058+0/0.88/0.59+0.055 ms cpu, 4->5->5 MB, 5 MB goal, 12 P
