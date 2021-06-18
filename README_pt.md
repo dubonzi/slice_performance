@@ -6,12 +6,11 @@ Aprendi essa dica enquanto procurava formas de otimizar uma de nossas apis aqui 
 
 ## Nosso exemplo
 
-Para este exemplo, peguei o conteúdo do livro [Moby Dick](https://github.com/GITenberg/Moby-Dick--Or-The-Whale_2701) e dividi o texto para criar um `slice` de strings (usando `strings.Split(book, " ")`) com um tamanho aproximado de 190000 palavras. Nosso objetivo é processar cada uma delas e criar um novo `slice` do tipo `Word` contendo nossa palavra modificada.
-
+Para este exemplo, dividi o conteúdo do livro [Moby Dick](https://github.com/GITenberg/Moby-Dick--Or-The-Whale_2701) para criar um `slice` de strings (usando `strings.Split(book, " ")`) com um tamanho aproximado de 190000 palavras. Nosso objetivo é processar cada uma delas e criar um novo `slice` do tipo `Word` contendo nossa palavra modificada.
 
 O código usado pode ser encontrado no [meu github](https://github.com/dubonzi/slice_performance).
 
-Ps: Os testes de performance fora rodados usando um `AMD Ryzen 5 5600X`.
+Ps: Os testes de performance foram executados usando um `AMD Ryzen 5 5600X`.
 
 Está é nossa struct `Word`:
 
@@ -47,7 +46,7 @@ func ProcessWordsFaster(rawWords []string) []Word {
 }
 ```
 
-Rodamos o teste (benchmark) e obtemos o resultado abaixo:
+Executamos o teste (benchmark) e obtemos o resultado abaixo:
 
 ```shell
 BenchmarkProcessWords-12         54  21833985 ns/op   30148452 B/op  194504 allocs/op
@@ -70,7 +69,7 @@ Agora você pode imaginar como crescer um `slice` de capacidade 0 até ~190000 p
 
 ## Solução
 
-A solução é simples no nosso caso, nós temos um `slice` de n `string`s e precisamos de um novo de n `Word`s. Ao informar uma capacidade inicial para o `slice` resultante usando `make([]Word, 0, len(rawWords))`, estamos dizendo para o Go alocar memória suficiente para guardar todas as nossas `Word`s, fazendo com que o `slice` não precise crescer.
+A solução é simples no nosso caso, temos um `slice` de n `string`s e precisamos de um novo de n `Word`s. Ao informar uma capacidade inicial para o `slice` resultante usando `make([]Word, 0, len(rawWords))`, estamos dizendo para o Go alocar memória suficiente para guardar todas as nossas `Word`s, fazendo com que o `slice` não precise crescer.
 
 Estamos trocando um pouco de performance inicial durante a criação do `slice` por um ganho muito maior ao adicionar elementos.
 
@@ -104,7 +103,7 @@ Com a nossa mudança, a coleta de lixo aconteceu 50% menos vezes.
 
 ## Conclusão
 
-Como podemos ver, é possível ganhar bastante performance com um pequeno ajuste, porém, essa solução não se aplica a todos os casos. E se não fossemos adicionar todos os 190000 elementos do primeiro `slice` no novo? Se por exemplo, só quiséssemos adicionar palavras de 7 caracteres ou mais, estaríamos alocando memória desnecessária, pois somente uma fração das palavras seria usada. É possível adaptar a solução para estes casos, mas isso é assunto para outro post.
+Como pode ser visto, é possível ganhar bastante performance com um pequeno ajuste, porém, essa solução não se aplica a todos os casos. E se não fossemos adicionar todos os 190000 elementos do primeiro `slice` no novo? Se por exemplo, só quiséssemos adicionar palavras de 7 caracteres ou mais, estaríamos alocando memória desnecessária, pois somente uma fração das palavras seria usada. É possível adaptar a solução para estes casos, mas isso é assunto para outro post.
 
 Obrigado por ler, este é meu primeiro artigo então fique a vontade para dar dicas e feedback. :)
 
