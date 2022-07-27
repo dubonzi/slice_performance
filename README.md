@@ -1,3 +1,5 @@
+> This repository has been moved to [here](https://github.com/dubonzi/blog/tree/main/slice-performance)
+
 # Improving performance with slices in Go
 
 Go's slices are fairly easy and simple to use but when working with a lot of data, you can save both cpu and memory usage by following a few tips. I'll touch briefly on some of the details but you can read a more in depth explanation on the [official blog](https://blog.golang.org/slices-intro).
